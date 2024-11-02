@@ -16,6 +16,8 @@ app.get("/api/makesession", (req, res) => {
     })
 })
 
+let updateRound = db.prepare("UPDATE sessions SET image_id = ?, round = round + 1 WHERE rowid=?;")
+
 app.get("/api/nextimage", (req, res) => {
     if (!("session_id" in req.query)) {res.status(400).send("No session_id"); return;}
     let id = Number(req.query.session_id)
@@ -33,8 +35,10 @@ app.get("/api/nextimage", (req, res) => {
                     res.status(400).send("I have no clue")
                 } else {
                     res.status(200).json({"img_id": row["rowid"]})
-                    db.run("UPDATE sessions SET image_id = ?, round = round + 1 WHERE rowid=?;" [row["rowid"], id], function (err) {
-                        console.log(err)
+                    updateRound.run([row["rowid"], id], function (err) {
+                        if (err != null) {
+                            console.log(err)
+                        }
                     })
                 }
             })
