@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 112.7215 187.1915">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #11294b;
+      }
+
+      .cls-1, .cls-2 {
+        stroke: #231f20;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-2 {
+        fill: #7cafd4;
+      }
+    </style>
+  </defs>
+  <polyline class="cls-2" points="64 187.0159 16 59.0159 64 59.0159 112 59.0159 64 187.0159"/>
+  <ellipse class="cls-2" cx="64" cy="59.0159" rx="48" ry="45.5541"/>
+  <ellipse class="cls-2" cx="32.2917" cy="15.8439" rx="12.7624" ry="15.3439"/>
+  <ellipse class="cls-2" cx="54.524" cy="11.8153" rx="9.476" ry="11.3153"/>
+  <ellipse class="cls-2" cx="70.8721" cy="11.0799" rx="6.8721" ry="8.4398"/>
+  <ellipse class="cls-2" cx="84.4273" cy="13.0026" rx="6.0504" ry="7.3051"/>
+  <ellipse class="cls-2" cx="94.9809" cy="19.6355" rx="5.5032" ry="6.8202"/>
+  <ellipse class="cls-1" cx="64" cy="71.1924" rx="25.8344" ry="31.8643"/>
+</svg>
