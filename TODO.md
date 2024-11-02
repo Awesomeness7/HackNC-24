@@ -1,0 +1,22 @@
+# Frontend
+ - JQuery
+ - Tailwind
+ - Leaflet
+ - Pannlum, maybe?
+ - OpenStreeMap
+ - [ ] Landing Page
+ - [ ] Game Page
+   - [ ] Rendering panorama
+   - [ ] Map
+     - [ ] movable
+     - [ ] clickable
+   - [ ] Timer/Stopwatch
+ - [ ] Results Page (your score)
+ - [ ] Debreief Page (after each image, your distance)   
+# Backend
+ - Sqlite
+ - Express
+ - /api/getscore?img_id={}&lat={}&long={}&time={}&session_id={} -> returns {"score": {}, "location": {"lat": {}, "long": {}}}
+ - /api/makesession -> returns {"session_id": {}}
+ - /api/nextimage?session_id={} -> returns {img_id: {}}
+ - /api/endsession?session_id={} -> returns {"score": {}}
