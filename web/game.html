@@ -21,24 +21,28 @@
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
             crossorigin=""></script>
 
-    <title>What the Heel!</title>
+    <title>Where the Heel!</title>
 </head>
 <body>
-<div class="panorama_container">
-<div id="panorama"></div>
+
+<h1 class="font-weight-bold text-center">Round {n}</h1>
+
+<div class="elements_container">
+    <div class="panorama_container">
+    <div id="panorama"></div>
+    </div>
+
+    <div class="map_container">
+        <div id="map"></div>
+    </div>
+    <div class="submit_button">
+        <button type="button" class="btn btn-primary btn-lg" style="font-size: medium; background-color: #13294B; color: #7BAFD4;">Submit</button>
+    </div>
 </div>
 
-<script class="pannellum_js">
-    pannellum.viewer('panorama', {
-        "type": "equirectangular",
-        "panorama": "./images/pano.jpg",
-        "autoLoad": true
-    });
-</script>
 
-<div id="map"></div>
 
-<script src="./js/osm.js"></script>
+<script src="./js/game.js"></script>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
