@@ -1,0 +1,13 @@
+.panorama_container {
+    padding-top: 10px;
+}
+#panorama {
+    width: 65%;
+    height: 25em;
+    margin: auto;
+}
+#map {
+    height: 20em;
+    width: 25%;
+    margin: auto;
+}

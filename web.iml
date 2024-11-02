@@ -4,5 +4,7 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$/web" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="bootstrap" level="application" />
+    <orderEntry type="library" name="pannellum" level="application" />
   </component>
 </module>
