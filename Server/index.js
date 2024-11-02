@@ -20,26 +20,23 @@ app.get("/api/nextimage", (req, res) => {
     if (!("session_id" in req.query)) {res.status(400).send("No session_id"); return;}
     let id = Number(req.query.session_id)
     if (id === NaN) {res.status(400).send("No id is not a number"); return;}
-    let err = false;
     db.get("SELECT rowid FROM sessions WHERE rowid=?;", [id], function (err, row) {
         if (err != null) {
             res.status(500).send(err.message);
-            err = true;
         } else if (row == undefined){
             res.status(400).send("Not a real session")
-            err = true;
-        }
-    })
-    if (err) return;
-    db.get("SELECT rowid FROM images ORDER BY RANDOM() LIMIT 1;", [], function (err, row) {
-        if (err != null) {
-            res.status(500).send(err.message);
-        } else if (row == undefined){
-            res.status(400).send("I have no clue")
         } else {
-            res.status(200).json({"img_id": row["rowid"]})
-            db.run("UPDATE sessions SET image_id=?, round=round+1 WHERE rowid=?;" [row["rowid"], id], function (err) {
-                console.log(err)
+            db.get("SELECT rowid FROM images ORDER BY RANDOM() LIMIT 1;", [], function (err, row) {
+                if (err != null) {
+                    res.status(500).send(err.message);
+                } else if (row == undefined){
+                    res.status(400).send("I have no clue")
+                } else {
+                    res.status(200).json({"img_id": row["rowid"]})
+                    db.run("UPDATE sessions SET image_id = ?, round = round + 1 WHERE rowid=?;" [row["rowid"], id], function (err) {
+                        console.log(err)
+                    })
+                }
             })
         }
     })
@@ -73,47 +70,59 @@ app.get("/api/getscore", (req, res) => {
     if (time === NaN) {res.status(400).send("time is not a number"); return;}
     let img_id = Number(req.query.img_id)
     if (img_id === NaN) {res.status(400).send("img_id is not a number"); return;}
-    let err = false
     db.get("SELECT rowid FROM sessions WHERE rowid=?;", [session_id], function (err, row) {
+        if (err != null) {
+            res.status(500).send(err.message);
+        } else if (row == undefined){
+            res.status(400).send("Not a real session")
+        } else {
+            db.get("SELECT rowid FROM images WHERE rowid=?;", [img_id], function (err, row) {
+                if (err != null) {
+                    res.status(500).send(err.message);
+                } else if (row == undefined){
+                    res.status(400).send("Not a real image")
+                } else {
+                    let longitude, latitude;
+                    db.get("SELECT latitude, longitude FROM images WHERE rowid=?;", [img_id], function (err, row) {
+                        if (err != null) {
+                            res.status(500).send(err.message)
+                        } else if (row == undefined) {
+                            res.status(400).send("Not a real image??")
+                        } else {
+                            longitude = row["longitude"]
+                            latitude = row["latitude"]
+                            let distance = Math.sqrt(Math.pow(longitude - long, 2) + Math.pow(latitude - lat, 2))
+                            let score = Math.floor(distance * 10000)
+                            db.run("UPDATE sessions SET score = score + ? WHERE rowid=?;", [score, session_id], function (err, row) {
+                                if (err != null) {
+                                    res.status(500).send(err.message)
+                                } else {
+                                    res.status(200).json({"score": score, "location": {"lat": latitude, "long": longitude}})
+                                }
+                            })
+                        }
+                    })
+                }
+            })
+        }
+    })
+})
+
+app.get("/api/endsession", (req, res) => {
+    if (!("session_id" in req.query)) {res.status(400).send("No session_id"); return;}
+    let session_id = Number(req.query.session_id)
+    if (session_id === NaN) {res.status(400).send("session_id is not a number"); return;}
+    db.get("SELECT rowid, score FROM sessions WHERE rowid=?;", [session_id], function (err, row) {
         if (err != null) {
             res.status(500).send(err.message);
             err = true;
         } else if (row == undefined){
             res.status(400).send("Not a real session")
             err = true;
-        }
-    })
-    if (err) return;
-    db.get("SELECT rowid FROM images WHERE rowid=?;", [img_id], function (err, row) {
-        if (err != null) {
-            res.status(500).send(err.message);
-            err = true;
-        } else if (row == undefined){
-            res.status(400).send("Not a real image")
-            err = true;
-        }
-    })
-    if (err) return;
-    let longitude, latitude;
-    db.get("SELECT latitude, longitude FROM images WHERE rowid=?;", [img_id], function (err, row) {
-        if (err == null) {
-            longitude = row["longitude"]
-            latitude = row["latitude"]
         } else {
-            res.status(500).send(err.message)
+            res.status(200).json({"score": row["score"]})
         }
     })
-    if (longitude == undefined) return;
-    let distance = Math.sqrt(Math.pow(longitude - long, 2) + Math.pow(latitude - lat, 2))
-    let score = floor(distance * 1000)
-    db.run("UPDATE sessions SET score = score + ? WHERE rowid=?", [score, session_id], function (err, row) {
-        if (err != null) {
-            res.status(500).send(err.message)
-            err = true;
-        }
-    })
-    if (err) return;
-    res.status(200).json({"score": score, "location": {"lat": latitude, "long": longitude}})
 })
 
 app.listen(port, () => {
