@@ -18,17 +18,26 @@
     background-repeat: 
     no-repeat; 
     background-size: cover;
+    align-items: center;
+    flex-direction: column;
     ">
     <div
-    style="background-color: rgba(0, 0, 0, 0.6);
-           padding: 20px 40px;
-           border-radius: 10px;">
-    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" viewBox="0 0 24 24" style="margin-right: 15px;">
-      <path d="\web\wheretheheellogo.svg">
-    </svg>
-    <h1 class="text-white" style="font-size: 5em; margin: 0;">Where The Heel?</h1>
+      style="background-color: rgba(0, 0, 0, 0.6);
+            padding: 20px 40px;
+            border-radius: 10px;
+            display: flex;">
+            
+      <img src="wheretheheellogo.svg" alt="Logo" style="width: 120px; height: auto; margin-right: 60px;">
+      <div style="display: flex; flex-direction: column;">
+      <h1 class="text-white" style="font-size: 7em; margin: 0;">Where The Heel?</h1>
+      <p class="text-white" style="font-size: 1.6em; margin: 0;">How well do you really know the hill? Guess each location to find out!</p>
+      </div>
+    </div>
+    <div style="margin-top: 20px; display: flex;">
+      <button type="button" class="btn btn-primary btn-lg" style="font-size: xxx-large; background-color: #13294B; color: #7BAFD4;">Play Game!</button>
     </div>
   </div>
+  
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
