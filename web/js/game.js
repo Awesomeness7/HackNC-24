@@ -92,14 +92,14 @@ document.getElementById("next_round_button").addEventListener("click", function 
         document.getElementById("next_round_button").setAttribute("disabled", "disabled");
         document.getElementById("submit_button").setAttribute("disabled", "disabled");
         round++;
-        actualmarker.destroy();
-        usermarker.destroy();
+        actualmarker.remove();
+        usermarker.remove();
         update_round(round);
         document.getElementById("results").style.visibility = "hidden";
         axios.get(`/api/nextimage?session_id=${session_id}`)
             .then(response => {
-                image_id = response.data.image_id;
+                image_id = response.data.img_id;
+                update_map(`/api/images/${image_id}`);
             });
-        update_map(`/api/images/${image_id}`);
     }
 });
