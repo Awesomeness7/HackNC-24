@@ -1,22 +1,25 @@
 body {
-    background-image: url('https://lh3.googleusercontent.com/p/AF1QipMovyk1j39bMuqAmXF9xlGMuakiV9xuoF-pwAVj=s1360-w1360-h1020');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('../images/bg.jpg');
     background-repeat:
-            no-repeat;
+    no-repeat;
     background-size: cover;
+    backdrop-filter: blur(2px);
 }
 
+
+
 #panorama {
-    /*width: 65%;*/
-    min-height: 40em;
-    /*height: 30em;*/
-    max-width: 80%;
-    max-height: 80%;
-    margin: auto;
+/*width: 65%;*/
+min-height: 40em;
+/*height: 30em;*/
+max-width: 80%;
+max-height: 80%;
+margin: auto;
 }
 #map {
-    height: 20em;
-    width: 20em;
-    /*margin: auto;*/
+height: 20em;
+width: 20em;
+/*margin: auto;*/
 }
 
 .elements_container {
@@ -61,16 +64,16 @@ body {
 }
 
 #round-num {
-    text-align: center; /* Center text inside the element */
-    padding: 10px; /* Add some padding */
-    display: inline-block; /* Prevents it from taking full width */
-    margin: 0 auto; /* Center the element horizontally */
-    border: 2px solid lightblue;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    max-width: 300px; /* Set a maximum width or use a specific width */
-    width: 100%; /* This allows it to be responsive within the max-width */
-    box-sizing: border-box; /* Include padding and border in the width */
+text-align: center; /* Center text inside the element */
+padding: 10px; /* Add some padding */
+display: inline-block; /* Prevents it from taking full width */
+margin: 0 auto; /* Center the element horizontally */
+border: 2px solid lightblue;
+background-color: rgba(0, 0, 0, 0.7);
+color: white;
+max-width: 300px; /* Set a maximum width or use a specific width */
+width: 100%; /* This allows it to be responsive within the max-width */
+box-sizing: border-box; /* Include padding and border in the width */
 }
 
 .round_parent {

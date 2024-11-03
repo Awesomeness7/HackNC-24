@@ -1,18 +1,17 @@
 # Frontend
- - JQuery
- - Tailwind
+ - Bootstrap
  - Leaflet
  - Pannlum, maybe?
  - OpenStreeMap
- - [ ] Landing Page
- - [ ] Game Page
-   - [ ] Rendering panorama
-   - [ ] Map
-     - [ ] movable
-     - [ ] clickable
+ - [X] Landing Page
+ - [X] Game Page
+   - [X] Rendering panorama
+   - [X] Map
+     - [X] movable
+     - [X] clickable
    - [ ] Timer/Stopwatch
- - [ ] Results Page (your score)
- - [ ] Debreief Page (after each image, your distance)   
+ - [X] Results Page (your score)
+ - [X] Debreief Page (after each image, your distance)   
 # Backend
  - Sqlite
  - Express
