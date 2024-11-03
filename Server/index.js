@@ -43,7 +43,7 @@ app.get("/api/nextimage", (req, res) => {
     if (!("session_id" in req.query)) {res.status(400).send("No session_id"); return;}
     let id = Number(req.query.session_id)
     if (id === NaN) {res.status(400).send("No id is not a number"); return;}
-    db.get("SELECT rowid, json(previous_images_jsonb) AS previous FROM sessions WHERE rowid=?;", [id], function (err, row) {
+    db.get("SELECT rowid, json(previous_images_json) AS previous FROM sessions WHERE rowid=?;", [id], function (err, row) {
         if (err != null) {
             res.status(500).send(err.message);
         } else if (row == undefined){
