@@ -4,6 +4,7 @@ PRAGMA foreign_keys = ON;
 CREATE TABLE sessions(
     score INTEGER NOT NULL,
     round INTEGER NOT NULL,
+    previous_images_json STRING NOT NULL,
     image_id INTEGER NOT NULL,
     FOREIGN KEY (image_id) REFERENCES images (rowid)
 );

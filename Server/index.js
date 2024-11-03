@@ -28,7 +28,7 @@ app.get("/results.html", (req, res) => {
 })
 
 app.get("/api/makesession", (req, res) => {
-    db.run("INSERT INTO sessions VALUES (0,0,0);", [], function (err) {
+    db.run("INSERT INTO sessions VALUES (0,0,\"[]\",0);", [], function (err) {
         if (err != null) {
             res.status(500).send(err.message)
         } else {
@@ -37,26 +37,27 @@ app.get("/api/makesession", (req, res) => {
     })
 })
 
-let updateRound = db.prepare("UPDATE sessions SET image_id = ?, round = round + 1 WHERE rowid=?;")
+let updateRound = db.prepare("UPDATE sessions SET image_id = ?, round = round + 1, previous_images_json = json_insert(previous_images_json,'$[#]', ?) WHERE rowid=?;")
 
 app.get("/api/nextimage", (req, res) => {
     if (!("session_id" in req.query)) {res.status(400).send("No session_id"); return;}
     let id = Number(req.query.session_id)
     if (id === NaN) {res.status(400).send("No id is not a number"); return;}
-    db.get("SELECT rowid FROM sessions WHERE rowid=?;", [id], function (err, row) {
+    db.get("SELECT rowid, json(previous_images_jsonb) AS previous FROM sessions WHERE rowid=?;", [id], function (err, row) {
         if (err != null) {
             res.status(500).send(err.message);
         } else if (row == undefined){
             res.status(400).send("Not a real session")
         } else {
-            db.get("SELECT rowid FROM images ORDER BY RANDOM() LIMIT 1;", [], function (err, row) {
+            let previous = row["previous"]
+            db.get(`SELECT rowid FROM images WHERE NOT rowid in (${previous.substr(1, previous.length - 2)}) ORDER BY RANDOM() LIMIT 1;`, [], function (err, row) {
                 if (err != null) {
                     res.status(500).send(err.message);
                 } else if (row == undefined){
                     res.status(400).send("I have no clue")
                 } else {
                     res.status(200).json({"img_id": row["rowid"]})
-                    updateRound.run([row["rowid"], id], function (err) {
+                    updateRound.run([row["rowid"], row["rowid"],  id], function (err) {
                         if (err != null) {
                             console.log(err)
                         }
