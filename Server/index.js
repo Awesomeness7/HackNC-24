@@ -1,10 +1,31 @@
 const express = require('express')
 const sqlite3 = require('sqlite3')
+const path = require('path')
+const fs = require('fs')
+
 
 const app = express()
 const port = 8080
 
 const db = new sqlite3.Database("database.sqlite")
+
+// Static stuff
+app.use("/js", express.static(path.join(__dirname, "..", "web", "js")))
+app.use("/css", express.static(path.join(__dirname, "..", "web", "css")))
+app.use("/images", express.static(path.join(__dirname, "..", "web", "images")))
+
+app.get("/", (req, res) => {
+    res.status(200).sendFile(path.join(__dirname, "..", "web", "index.html"))
+})
+app.get("/game.html", (req, res) => {
+    res.status(200).sendFile(path.join(__dirname, "..", "web", "game.html"))
+})
+app.get("/instructions.html", (req, res) => {
+    res.status(200).sendFile(path.join(__dirname, "..", "web", "instructions.html"))
+})
+app.get("/results.html", (req, res) => {
+    res.status(200).sendFile(path.join(__dirname, "..", "web", "results.html"))
+})
 
 app.get("/api/makesession", (req, res) => {
     db.run("INSERT INTO sessions VALUES (0,0,0);", [], function (err) {
@@ -62,7 +83,7 @@ app.get("/api/getscore", (req, res) => {
     if (!("session_id" in req.query)) {res.status(400).send("No session_id"); return;}
     if (!("lat" in req.query)) {res.status(400).send("No lat"); return;}
     if (!("long" in req.query)) {res.status(400).send("No long"); return;}
-    if (!("time" in req.query)) {res.status(400).send("No time"); return;}
+    //if (!("time" in req.query)) {res.status(400).send("No time"); return;}
     if (!("img_id" in req.query)) {res.status(400).send("No img_id"); return;}
     let session_id = Number(req.query.session_id)
     if (session_id === NaN) {res.status(400).send("session_id is not a number"); return;}
@@ -70,8 +91,8 @@ app.get("/api/getscore", (req, res) => {
     if (lat === NaN) {res.status(400).send("lat is not a number"); return;}
     let long = Number(req.query.long)
     if (long === NaN) {res.status(400).send("long is not a number"); return;}
-    let time = Number(req.query.time)
-    if (time === NaN) {res.status(400).send("time is not a number"); return;}
+    //let time = Number(req.query.time)
+    //if (time === NaN) {res.status(400).send("time is not a number"); return;}
     let img_id = Number(req.query.img_id)
     if (img_id === NaN) {res.status(400).send("img_id is not a number"); return;}
     db.get("SELECT rowid FROM sessions WHERE rowid=?;", [session_id], function (err, row) {

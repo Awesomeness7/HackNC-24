@@ -14,9 +14,9 @@ document.addEventListener("DOMContentLoaded", function () {
     if (session_id) {
         axios.get(`/api/nextimage?session_id=${session_id}`)
             .then(response => {
-                image_id = response.data.image_id;
+                image_id = response.data.img_id;
+                update_map(`/api/images/${image_id}`);
             });
-        update_map(`/api/images/${image_id}`);
     } else {
         console.log("No session id")
         update_map('./images/pano.jpg');
@@ -71,14 +71,14 @@ map.on('click', onMapClick);
 document.getElementById("submit_button").addEventListener("click", function () {
     axios.get(`/api/getscore?img_id=${image_id}&lat=${markerlat}&long=${markerlng}&session_id=${session_id}`)
         .then(response => {
-            round_results(response.data.score,results.data.location);
+            round_results(response.data.score,response.data.location);
         })
 });
 
 function round_results(score, location) {
     document.getElementById("results").style.visibility = "initial";
     document.getElementById("round-num").textContent=('Points ' + score);
-    actualmarker  = L.marker(location).addTo(map);
+    actualmarker  = L.marker(L.latLng(location.lat, location.long)).addTo(map);
     if (round === 5) {
         document.getElementById("next_round_button").textContent="Finish Game";
     }
