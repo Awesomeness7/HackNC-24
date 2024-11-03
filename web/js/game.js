@@ -1,9 +1,11 @@
+// import axios from "axios";
+
 let testmarker;
 let markerlat;
 let markerlng;
-var corner1 = L.latLng(35.914674, -79.059586);
-var corner2 = L.latLng(35.900953, -79.039877);
-bounds = L.latLngBounds(corner1, corner2);
+// let corner1 = [35.914674, -79.059586];
+// let corner2 = [35.900953, -79.039877];
+// bounds = [corner1, corner2];
 
 // Replace map div with
 var map = L.map('map').setView([35.906923, -79.047827], 13);
@@ -19,7 +21,7 @@ pannellum.viewer('panorama', {
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 18,
     minZoom: 15,
-    maxBounds: bounds,
+    // maxBounds: bounds,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
@@ -37,3 +39,5 @@ function onMapClick(e) {
 }
 
 map.on('click', onMapClick);
+
+// axios.get('/')

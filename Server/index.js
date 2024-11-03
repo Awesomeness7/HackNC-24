@@ -95,8 +95,9 @@ app.get("/api/getscore", (req, res) => {
                         } else {
                             longitude = row["longitude"]
                             latitude = row["latitude"]
+                            let mapWidth = 0.0125446442755
                             let distance = Math.sqrt(Math.pow(longitude - long, 2) + Math.pow(latitude - lat, 2))
-                            let score = Math.floor(distance * 10000)
+                            let score = Math.floor(Math.pow(10000, -0.5*Math.pow(distance/mapWidth, 2)) * 10000)
                             db.run("UPDATE sessions SET score = score + ? WHERE rowid=?;", [score, session_id], function (err, row) {
                                 if (err != null) {
                                     res.status(500).send(err.message)
