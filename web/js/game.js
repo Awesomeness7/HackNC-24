@@ -69,6 +69,7 @@ function onMapClick(e) {
 map.on('click', onMapClick);
 
 document.getElementById("submit_button").addEventListener("click", function () {
+    document.getElementById("next_round_button").removeAttribute("disabled");
     axios.get(`/api/getscore?img_id=${image_id}&lat=${markerlat}&long=${markerlng}&session_id=${session_id}`)
         .then(response => {
             round_results(response.data.score,response.data.location);
@@ -77,7 +78,7 @@ document.getElementById("submit_button").addEventListener("click", function () {
 
 function round_results(score, location) {
     document.getElementById("results").style.visibility = "initial";
-    document.getElementById("round-num").textContent=('Points ' + score);
+    document.getElementById("results_text").textContent=('Points ' + score);
     actualmarker  = L.marker(L.latLng(location.lat, location.long)).addTo(map);
     if (round === 5) {
         document.getElementById("next_round_button").textContent="Finish Game";
