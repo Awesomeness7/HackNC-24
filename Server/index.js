@@ -53,7 +53,7 @@ app.get("/api/images/:id", (req, res) => {
         } else if (row == undefined){
             res.status(400).send("I have no clue")
         } else {
-            res.status(200).set("Content-Type", "image/png").send(row["image"])
+            res.status(200).set("Content-Type", "image/jpeg").send(row["image"])
         }
     })
 })
