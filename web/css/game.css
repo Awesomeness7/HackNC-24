@@ -108,6 +108,14 @@ box-sizing: border-box; /* Include padding and border in the width */
 /*}*/
 
 .continue_button {
-    position: absolute;
-    margin: auto;
+    /*position: absolute;*/
+    /*margin: auto;*/
+    /*left: 5%;*/
+    /*position: absolute;*/
+    /*left: 50%;*/
+}
+
+.next_round_div {
+    position: relative;
+    margin-left: 11%;
 }
