@@ -1,3 +1,6 @@
 package-lock.json
+pnpm-lock.yaml
 node_modules/
 *.sqlite
+*.sqlite-shm
+*.sqlite-wal

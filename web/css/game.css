@@ -1,0 +1,110 @@
+body {
+    background-image: url('https://lh3.googleusercontent.com/p/AF1QipMovyk1j39bMuqAmXF9xlGMuakiV9xuoF-pwAVj=s1360-w1360-h1020');
+    background-repeat:
+            no-repeat;
+    background-size: cover;
+}
+
+#panorama {
+    /*width: 65%;*/
+    min-height: 40em;
+    /*height: 30em;*/
+    max-width: 80%;
+    max-height: 80%;
+    margin: auto;
+}
+#map {
+    height: 20em;
+    width: 20em;
+    /*margin: auto;*/
+}
+
+.elements_container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.panorama_container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.map_container {
+    z-index: 10;
+    position: absolute;
+    top: 24em;
+    right: 11%;
+}
+
+.submit_button {
+    z-index: 11;
+    position: absolute;
+    top: 24.3em;
+    right: 11.5%;
+}
+
+.results {
+    visibility: hidden;
+    font-size: 20px;
+    padding: 10px;
+    border: 2px solid lightblue;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    z-index: 11;
+    position: absolute;
+    top: 4em;
+    right: 11%;
+}
+
+#round-num {
+    text-align: center; /* Center text inside the element */
+    padding: 10px; /* Add some padding */
+    display: inline-block; /* Prevents it from taking full width */
+    margin: 0 auto; /* Center the element horizontally */
+    border: 2px solid lightblue;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    max-width: 300px; /* Set a maximum width or use a specific width */
+    width: 100%; /* This allows it to be responsive within the max-width */
+    box-sizing: border-box; /* Include padding and border in the width */
+}
+
+.round_parent {
+    display: flex; /* Allows flex properties */
+    justify-content: center; /* Center child elements */
+}
+
+/*.elements_container {*/
+/*    display: grid;*/
+/*}*/
+
+/*.map_container, .panorama_container {*/
+/*    grid-area: 1 / 1;*/
+/*}*/
+
+/*.map_container {*/
+/*    display: grid;*/
+/*    align-self: end;*/
+/*    justify-self: end;*/
+/*    !*right: 0%;*!*/
+/*    margin-right: 11%;*/
+/*    margin-bottom: 1%;*/
+/*    position: relative; !* Relative positioning for absolute positioning of button *!*/
+/*    z-index: 1;*/
+/*}*/
+
+/*.submit_button {*/
+/*    position: absolute;*/
+/*    top: 28em;        !* Adjust as needed to fine-tune position *!*/
+/*    right: 28em;      !* Adjust as needed to fine-tune position *!*/
+/*    z-index: 2;      !* Ensure it stays above other elements *!*/
+/*}*/
+
+.continue_button {
+    position: absolute;
+    margin: auto;
+}
