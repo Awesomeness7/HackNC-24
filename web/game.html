@@ -26,7 +26,7 @@
 </head>
 <body>
 
-<h1 class="font-weight-bold text-center">Round {n}</h1>
+<h1 class="font-weight-bold text-center" id="round-num">Round {n}</h1>
 
 <div class="elements_container">
     <div class="panorama_container">
@@ -37,12 +37,23 @@
         <div id="map"></div>
     </div>
     <div class="submit_button">
-        <button type="button" class="btn btn-primary btn-lg" style="font-size: medium; background-color: #13294B; color: #7BAFD4;">Submit</button>
+        <button id="submit_button" type="button" class="btn btn-primary btn-lg" disabled style="font-size: medium; background-color: #13294B; color: #7BAFD4;">Submit</button>
     </div>
+</div>
+
+<div class="results">
+    Points:
+</div>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+<div class="text-center">
+    <button type="button" id="next_round_button" class="btn btn-primary btn-lg" disabled style="font-size: x-large; background-color: #13294B; color: #7BAFD4;">Next Round!</button>
 </div>
 
 
 
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="./js/game.js"></script>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

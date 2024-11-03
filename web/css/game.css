@@ -1,3 +1,17 @@
+#panorama {
+    /*width: 65%;*/
+    min-height: 40em;
+    /*height: 30em;*/
+    max-width: 80%;
+    max-height: 80%;
+    margin: auto;
+}
+#map {
+    height: 20em;
+    width: 20em;
+    /*margin: auto;*/
+}
+
 .elements_container {
     position: relative;
     width: 100%;
@@ -5,7 +19,6 @@
 }
 
 .panorama_container {
-    /*padding-top: 0px;*/
     position: absolute;
     width: 100%;
     height: 100%;
@@ -23,20 +36,50 @@
 .submit_button {
     z-index: 11;
     position: absolute;
-    top: 24em;
+    top: 24.3em;
+    right: 11.5%;
+}
+
+.results {
+    visibility: hidden;
+    font-size: 20px;
+    padding: 10px;
+    border: 2px solid lightblue;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    z-index: 11;
+    position: absolute;
+    top: 4em;
     right: 11%;
 }
 
-#panorama {
-    /*width: 65%;*/
-    min-height: 40em;
-    /*height: 30em;*/
-    max-width: 80%;
-    max-height: 80%;
+/*.elements_container {*/
+/*    display: grid;*/
+/*}*/
+
+/*.map_container, .panorama_container {*/
+/*    grid-area: 1 / 1;*/
+/*}*/
+
+/*.map_container {*/
+/*    display: grid;*/
+/*    align-self: end;*/
+/*    justify-self: end;*/
+/*    !*right: 0%;*!*/
+/*    margin-right: 11%;*/
+/*    margin-bottom: 1%;*/
+/*    position: relative; !* Relative positioning for absolute positioning of button *!*/
+/*    z-index: 1;*/
+/*}*/
+
+/*.submit_button {*/
+/*    position: absolute;*/
+/*    top: 28em;        !* Adjust as needed to fine-tune position *!*/
+/*    right: 28em;      !* Adjust as needed to fine-tune position *!*/
+/*    z-index: 2;      !* Ensure it stays above other elements *!*/
+/*}*/
+
+.continue_button {
+    position: absolute;
     margin: auto;
-}
-#map {
-    height: 20em;
-    width: 20em;
-    /*margin: auto;*/
 }

@@ -1,21 +1,48 @@
-// import axios from "axios";
-
-let testmarker;
+let usermarker;
+let actualmarker;
 let markerlat;
 let markerlng;
-// let corner1 = [35.914674, -79.059586];
-// let corner2 = [35.900953, -79.039877];
-// bounds = [corner1, corner2];
+let pano_widget;
+let image_id;
+let round = 1;
+const session_id = localStorage.getItem("session_id");
 
-// Replace map div with
-var map = L.map('map').setView([35.906923, -79.047827], 13);
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("next_round_button").textContent="Next Round!";
+    update_round(round);
 
-// Replace panorama div with pannellum
-pannellum.viewer('panorama', {
-    "type": "equirectangular",
-    "panorama": "./images/pano.jpg",
-    "autoLoad": true
+    if (session_id) {
+        axios.get(`/api/nextimage?session_id=${session_id}`)
+            .then(response => {
+                image_id = response.data.image_id;
+            });
+        update_map(`/api/images/${image_id}`);
+    } else {
+        console.log("No session id")
+        update_map('./images/pano.jpg');
+    }
 });
+
+function update_map(image_url) {
+    if (pano_widget) {
+        pano_widget.destroy();
+    }
+    // Replace panorama div with pannellum widget
+    pano_widget = pannellum.viewer('panorama', {
+        "type": "equirectangular",
+        "panorama": `${image_url}`,
+        "autoLoad": true
+    });
+}
+
+function update_round(round) {
+    document.getElementById("round-num").textContent=('Round ' + round);
+    return void(0);
+}
+
+// Replace map div with leaflet map
+let map = L.map('map').setView([35.906923, -79.047827], 13);
+
 
 // Tile layer, attribution is required
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -28,16 +55,50 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 function onMapClick(e) {
     // alert("You clicked the map at " + e.latlng);
-    if (testmarker) {
-        testmarker.remove();
+    if (usermarker) {
+        usermarker.remove();
     }
-    testmarker = L.marker(e.latlng).addTo(map);
+    usermarker = L.marker(e.latlng).addTo(map);
     markerlat = e.latlng.lat;
     markerlng = e.latlng.lng;
     // console.log(markerlat);
     // console.log(markerlong);
+    document.getElementById("submit_button").removeAttribute("disabled");
 }
 
 map.on('click', onMapClick);
 
-// axios.get('/')
+document.getElementById("submit_button").addEventListener("click", function () {
+    axios.get(`/api/getscore?img_id=${image_id}&lat=${markerlat}&long=${markerlng}&session_id=${session_id}`)
+        .then(response => {
+            round_results(response.data.score,results.data.location);
+        })
+});
+
+function round_results(score, location) {
+    document.getElementById("results").style.visibility = "initial";
+    document.getElementById("round-num").textContent=('Points ' + score);
+    actualmarker  = L.marker(location).addTo(map);
+    if (round === 5) {
+        document.getElementById("next_round_button").textContent="Finish Game";
+    }
+}
+
+document.getElementById("next_round_button").addEventListener("click", function () {
+    if (round === 5) {
+        window.location.href = "results.html";
+    } else {
+        document.getElementById("next_round_button").setAttribute("disabled", "disabled");
+        document.getElementById("submit_button").setAttribute("disabled", "disabled");
+        round++;
+        actualmarker.destroy();
+        usermarker.destroy();
+        update_round(round);
+        document.getElementById("results").style.visibility = "hidden";
+        axios.get(`/api/nextimage?session_id=${session_id}`)
+            .then(response => {
+                image_id = response.data.image_id;
+            });
+        update_map(`/api/images/${image_id}`);
+    }
+});
