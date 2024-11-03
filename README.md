@@ -6,8 +6,6 @@
 
 [OpenStreetMap](https://www.openstreetmap.org/about) - Open Source Street Maps
 
-[JQuery](https://jquery.com/) 
-
 [Bootstrap](https://getbootstrap.com/)
 
 [Express.JS](http://expressjs.com/)
