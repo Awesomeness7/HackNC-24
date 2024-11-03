@@ -20,13 +20,16 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
             crossorigin=""></script>
-            
+
     <link rel="icon" href="./images/logo.svg">
     <title>Where the Heel!</title>
 </head>
 <body>
 
-<h1 class="font-weight-bold text-center" id="round-num">Round {n}</h1>
+<div class="round_parent">
+    <h1 class="font-weight-bold" id="round-num">Round {n}</h1>
+</div>
+
 
 <div class="elements_container">
     <div class="panorama_container">
@@ -37,7 +40,7 @@
         <div id="map"></div>
     </div>
     <div class="submit_button">
-        <button id="submit_button" type="button" class="btn btn-primary btn-lg" disabled style="font-size: medium; background-color: #13294B; color: #7BAFD4;">Submit</button>
+        <button id="submit_button" type="button" class="btn btn-primary btn-lg" style="visibility: hidden; font-size: medium; background-color: #13294B; color: #7BAFD4;">Submit</button>
     </div>
 </div>
 
