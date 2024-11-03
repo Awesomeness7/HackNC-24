@@ -1,3 +1,10 @@
+body {
+    background-image: url('https://lh3.googleusercontent.com/p/AF1QipMovyk1j39bMuqAmXF9xlGMuakiV9xuoF-pwAVj=s1360-w1360-h1020');
+    background-repeat:
+            no-repeat;
+    background-size: cover;
+}
+
 #panorama {
     /*width: 65%;*/
     min-height: 40em;
@@ -51,6 +58,24 @@
     position: absolute;
     top: 4em;
     right: 11%;
+}
+
+#round-num {
+    text-align: center; /* Center text inside the element */
+    padding: 10px; /* Add some padding */
+    display: inline-block; /* Prevents it from taking full width */
+    margin: 0 auto; /* Center the element horizontally */
+    border: 2px solid lightblue;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    max-width: 300px; /* Set a maximum width or use a specific width */
+    width: 100%; /* This allows it to be responsive within the max-width */
+    box-sizing: border-box; /* Include padding and border in the width */
+}
+
+.round_parent {
+    display: flex; /* Allows flex properties */
+    justify-content: center; /* Center child elements */
 }
 
 /*.elements_container {*/

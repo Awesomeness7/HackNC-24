@@ -5,6 +5,7 @@ let markerlng;
 let pano_widget;
 let image_id;
 let round = 1;
+let submit_state = false;
 const session_id = localStorage.getItem("session_id");
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -55,20 +56,25 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 function onMapClick(e) {
     // alert("You clicked the map at " + e.latlng);
-    if (usermarker) {
-        usermarker.remove();
+    if (!submit_state) {
+        if (usermarker) {
+            usermarker.remove();
+        }
+        usermarker = L.marker(e.latlng).addTo(map);
+        markerlat = e.latlng.lat;
+        markerlng = e.latlng.lng;
+        // console.log(markerlat);
+        // console.log(markerlong);
+        // document.getElementById("submit_button").removeAttribute("disabled");
+        document.getElementById("submit_button").style.visibility = "visible";
     }
-    usermarker = L.marker(e.latlng).addTo(map);
-    markerlat = e.latlng.lat;
-    markerlng = e.latlng.lng;
-    // console.log(markerlat);
-    // console.log(markerlong);
-    document.getElementById("submit_button").removeAttribute("disabled");
 }
 
 map.on('click', onMapClick);
 
 document.getElementById("submit_button").addEventListener("click", function () {
+    document.getElementById("submit_button").style.visibility = "hidden";
+    submit_state = true;
     document.getElementById("next_round_button").removeAttribute("disabled");
     axios.get(`/api/getscore?img_id=${image_id}&lat=${markerlat}&long=${markerlng}&session_id=${session_id}`)
         .then(response => {
@@ -76,10 +82,21 @@ document.getElementById("submit_button").addEventListener("click", function () {
         })
 });
 
+var correctMarkerIcon = L.icon({
+    iconUrl: '../images/logo.svg',
+    iconSize: [38, 95],
+    iconAnchor: [22, 94],
+    popupAnchor: [-3, -76],
+    // shadowUrl: 'my-icon-shadow.png',
+    shadowSize: [68, 95],
+    shadowAnchor: [22, 94]
+});
+
 function round_results(score, location) {
     document.getElementById("results").style.visibility = "initial";
     document.getElementById("results_text").textContent=('Points ' + score);
-    actualmarker  = L.marker(L.latLng(location.lat, location.long)).addTo(map);
+    actualmarker  = L.marker(L.latLng(location.lat, location.long),{icon: correctMarkerIcon}).addTo(map);
+    map.setView([location.lat, location.long],18);
     if (round === 5) {
         document.getElementById("next_round_button").textContent="Finish Game";
     }
@@ -89,13 +106,15 @@ document.getElementById("next_round_button").addEventListener("click", function 
     if (round === 5) {
         window.location.href = "results.html";
     } else {
+        map.setView([35.906923, -79.047827], 13);
         document.getElementById("next_round_button").setAttribute("disabled", "disabled");
-        document.getElementById("submit_button").setAttribute("disabled", "disabled");
+        // document.getElementById("submit_button").setAttribute("disabled", "disabled");
         round++;
         actualmarker.remove();
         usermarker.remove();
         update_round(round);
         document.getElementById("results").style.visibility = "hidden";
+        submit_state = false;
         axios.get(`/api/nextimage?session_id=${session_id}`)
             .then(response => {
                 image_id = response.data.img_id;
