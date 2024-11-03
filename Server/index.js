@@ -16,6 +16,8 @@ app.get("/api/makesession", (req, res) => {
     })
 })
 
+let updateRound = db.prepare("UPDATE sessions SET image_id = ?, round = round + 1 WHERE rowid=?;")
+
 app.get("/api/nextimage", (req, res) => {
     if (!("session_id" in req.query)) {res.status(400).send("No session_id"); return;}
     let id = Number(req.query.session_id)
@@ -33,8 +35,10 @@ app.get("/api/nextimage", (req, res) => {
                     res.status(400).send("I have no clue")
                 } else {
                     res.status(200).json({"img_id": row["rowid"]})
-                    db.run("UPDATE sessions SET image_id = ?, round = round + 1 WHERE rowid=?;" [row["rowid"], id], function (err) {
-                        console.log(err)
+                    updateRound.run([row["rowid"], id], function (err) {
+                        if (err != null) {
+                            console.log(err)
+                        }
                     })
                 }
             })
@@ -91,8 +95,9 @@ app.get("/api/getscore", (req, res) => {
                         } else {
                             longitude = row["longitude"]
                             latitude = row["latitude"]
+                            let mapWidth = 0.0125446442755
                             let distance = Math.sqrt(Math.pow(longitude - long, 2) + Math.pow(latitude - lat, 2))
-                            let score = Math.floor(distance * 10000)
+                            let score = Math.floor(Math.pow(10000, -0.5*Math.pow(distance/mapWidth, 2)) * 10000)
                             db.run("UPDATE sessions SET score = score + ? WHERE rowid=?;", [score, session_id], function (err, row) {
                                 if (err != null) {
                                     res.status(500).send(err.message)
